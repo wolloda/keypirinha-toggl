@@ -40,6 +40,7 @@ class Toggl(kp.Plugin):
 
     def __init__(self):
         super().__init__()
+        self._debug = True
 
     def on_start(self):
         self._read_config()
@@ -117,7 +118,7 @@ class Toggl(kp.Plugin):
     def on_execute(self, item, action):
         if item.category() == kp.ItemCategory.KEYWORD and item.target() == "stop_timer":
             self._toggl.stop_timer()
-            self.info("Runing timer stopped")
+            self.info("Running timer stopped")
 
         if item.category() == self.TOGGL_TIMER_ENTRY and item.target() == "start_timer":
             self.info(item.label())
@@ -136,7 +137,7 @@ class Toggl(kp.Plugin):
         pass
 
     def on_events(self, flags):
-        self._reload_config()
+        self._read_config()
         self.on_catalog()
 
     def _read_config(self):
